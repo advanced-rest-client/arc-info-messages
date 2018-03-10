@@ -23,42 +23,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="../../arc-messages-service/arc-messages-service.html">
   <link rel="import" href="../../paper-toast/paper-toast.html">
   <link rel="import" href="../arc-info-messages.html">
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles">
+    :root {
+      --primary-color: #00A2DF;
 
-  <style is="custom-style" include="demo-pages-shared-styles">
-  :root {
-    --primary-color: #00A2DF;
+      --arc-font-headline: {
+        @apply --paper-font-headline;
+      };
 
-    --arc-font-headline: {
-      @apply --paper-font-headline;
-    };
+      --arc-font-body1: {
+        @apply --paper-font-body1;
+      };
 
-    --arc-font-body1: {
-      @apply --paper-font-body1;
-    };
-
-    --arc-font-subhead: {
-      @apply --paper-font-subhead;
+      --arc-font-subhead: {
+        @apply --paper-font-subhead;
+      }
     }
-  }
 
-  .vertical-section-container {
-    max-width: 600px;
-    background-color: #FCFCFC;
-  }
-
-  </style>
+    .vertical-section-container {
+      max-width: 600px;
+      background-color: #FCFCFC;
+    }
+    </style>
+  </custom-style>
 </head>
-<body unresolved>
-  <div class="vertical-section-container centered">
-    <h3>The `arc-info-messages`</h3>
-    <demo-snippet>
-      <template is="dom-bind">
+<body>
+  <dom-bind id="demo">
+    <template is="dom-bind">
+      <div class="vertical-section-container">
+        <h3>The `arc-info-messages`</h3>
         <arc-info-messages messages="[[messages]]"></arc-info-messages>
         <p>Unread size: [[unread.length]]</p>
         <arc-messages-service platform="chrome" messages="{{messages}}" unread="{{unread}}" auto-messages></arc-messages-service>
-      </template>
-    </demo-snippet>
-  </div>
+      </div>
+    </template>
+  </dom-bind>
   <paper-toast text="Close action detected" id="closeToast"><paper-toast>
   <script>
   window.addEventListener('WebComponentsReady', function() {

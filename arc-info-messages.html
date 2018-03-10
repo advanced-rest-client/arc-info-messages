@@ -11,7 +11,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 -->
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../arc-icons/arc-icons.html">
@@ -92,7 +92,6 @@ Custom property | Description | Default
       <h2>What’s new</h2>
       <paper-icon-button icon="arc:close" on-tap="_sendClose"></paper-icon-button>
     </div>
-
     <div class="list">
       <template is="dom-repeat" items="[[messages]]">
         <arc-info-message title="[[item.title]]" message="[[item.abstract]]" timestamp="[[item.time]]" link-label="[[item.cta]]" link-action="[[item.actionurl]]" read="[[item.read]]"></arc-info-message>
@@ -100,26 +99,30 @@ Custom property | Description | Default
     </div>
   </template>
   <script>
-  Polymer({
-    is: 'arc-info-messages',
-    properties: {
-      // List of messages to display
-      messages: Array
-    },
+  class ArcInfoMessages extends Polymer.Element {
+    static get is() { return 'arc-info-messages'; }
+    static get properties() {
+      return {
+        // List of messages to display
+        messages: Array
+      };
+    }
     /**
      * Sends non-bubbling `close` custom event
      */
-    _sendClose: function() {
-      this.fire('close', undefined, {
+    _sendClose() {
+      const ev = new CustomEvent('close', {
+        cancelable: true,
         bubbles: false
       });
+      this.dispatchEvent(ev);
     }
-
     /**
      * Non-bubbling event fired when the user request to close the view.
      *
      * @event close
      */
-  });
+  }
+  window.customElements.define(ArcInfoMessages.is, ArcInfoMessages);
   </script>
 </dom-module>
