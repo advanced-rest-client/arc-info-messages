@@ -11,7 +11,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 -->
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../date-time/date-time.html">
 <!--
 A message item for the messages list.
@@ -79,7 +79,7 @@ Custom property | Description | Default
     }
 
     a {
-      color: var(--arc-info-message-action-color, --primary-color);
+      color: var(--arc-info-message-action-color, var(--primary-color));
       @apply --arc-info-message-action;
     }
 
@@ -100,9 +100,10 @@ Custom property | Description | Default
     </template>
   </template>
   <script>
-    Polymer({
-      is: 'arc-info-message',
-      properties: {
+  class ArcInfoMessage extends Polymer.Element {
+    static get is() { return 'arc-info-message'; }
+    static get properties() {
+      return {
         // Title of the message
         title: String,
         // Message to display
@@ -123,20 +124,29 @@ Custom property | Description | Default
           type: Boolean,
           computed: '_computeHasAction(linkAction, linkLabel)'
         }
-      },
+      };
+    }
 
-      _computeHasAction: function(linkAction, linkLabel) {
-        return !!(linkAction && linkLabel);
-      },
-      // Reports GA action.
-      _reportMessageOpen: function() {
-        this.fire('send-analytics', {
+    _computeHasAction(linkAction, linkLabel) {
+      return !!(linkAction && linkLabel);
+    }
+
+    // Reports GA action.
+    _reportMessageOpen() {
+      const ev = new CustomEvent('send-analytics', {
+        detail: {
           type: 'event',
           category: 'arc-info-messages',
           action: 'Opened',
           label: this.title
-        });
-      }
-    });
+        },
+        cancelable: true,
+        bubbles: true,
+        composed: true
+      });
+      this.dispatchEvent(ev);
+    }
+  }
+  window.customElements.define(ArcInfoMessage.is, ArcInfoMessage);
   </script>
 </dom-module>
