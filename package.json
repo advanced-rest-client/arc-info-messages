@@ -1,6 +1,6 @@
 {
   "name": "@advanced-rest-client/arc-info-messages",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "license": "Apache-2.0",
   "description": "A list of app messages to be displayed to the user",
   "authors": [

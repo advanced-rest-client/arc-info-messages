@@ -1,6 +1,6 @@
 <!--
 @license
-Copyright 2017 The Advanced REST client authors <arc@mulesoft.com>
+Copyright 2018 The Advanced REST client authors <arc@mulesoft.com>
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
 use this file except in compliance with the License. You may obtain a copy of
 the License at
@@ -13,37 +13,6 @@ the License.
 -->
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../date-time/date-time.html">
-<!--
-A message item for the messages list.
-
-### Example
-```
-<arc-info-message title="Hello world!" message="This is a message" timestamp="1507842822597" link-label="Read more about this" link-action="https://domain.com"></arc-info-message>
-```
-
-### Styling
-`<arc-info-messages>` provides the following custom properties and mixins for styling:
-
-Custom property | Description | Default
-----------------|-------------|----------
-`--arc-info-message` | Mixin applied to the message item | `{}`
-`--arc-info-message-title-weight` | Message title width | `400`
-`--arc-info-message-unread-title-weight` | Message title width when unread. | `500`
-`--arc-info-message-title` | Mixin applied to the title of the message | `{}`
-`--arc-info-message-date-color` | Color of the date label | `rgba(0, 0, 0, 0.64)`
-`--arc-info-message-date` | Mixin applied to the date label | `{}`
-`--arc-info-message-content-color` | Color of the message | `rgba(0, 0, 0, 0.74)`
-`--arc-info-message-content` | Mixin applied to the mesage container. | `{}`
-`--arc-info-message-action-color` | Color of the action link | `--primary-color`
-`--arc-info-message-action` | Mixin applied to the action link | `{}`
-`--arc-info-message-action-container` | Mixin applied to message's action container | `{}`
-`--arc-font-body1` | Theme font | `{}`
-`--arc-font-subhead` | Theme font title | `{}`
-
-@group UI Elements
-@element arc-info-messages
-@demo demo/index.html
--->
 <dom-module id="arc-info-message">
   <template>
     <style>
@@ -95,11 +64,51 @@ Custom property | Description | Default
     <p class="message">[[message]]</p>
     <template is="dom-if" if="[[hasAction]]">
       <div class="action">
-        <a target="_blank" href="[[linkAction]]" on-tap="_reportMessageOpen">[[linkLabel]]</a>
+        <a target="_blank" href="[[linkAction]]" on-click="_openMessage">[[linkLabel]]</a>
       </div>
     </template>
   </template>
   <script>
+  /**
+   * A message item for the messages list.
+   *
+   * ### Example
+   *
+   * ```html
+   * <arc-info-message
+   *  title="Hello world!"
+   *  message="This is a message"
+   *  timestamp="1507842822597"
+   *  link-label="Read more about this"
+   *  link-action="https://domain.com"></arc-info-message>
+   * ```
+   *
+   * ### Styling
+   *
+   * `<arc-info-messages>` provides the following custom properties and mixins
+   * for styling:
+   *
+   * Custom property | Description | Default
+   * ----------------|-------------|----------
+   * `--arc-info-message` | Mixin applied to the message item | `{}`
+   * `--arc-info-message-title-weight` | Message title width | `400`
+   * `--arc-info-message-unread-title-weight` | Message title width when unread. | `500`
+   * `--arc-info-message-title` | Mixin applied to the title of the message | `{}`
+   * `--arc-info-message-date-color` | Color of the date label | `rgba(0, 0, 0, 0.64)`
+   * `--arc-info-message-date` | Mixin applied to the date label | `{}`
+   * `--arc-info-message-content-color` | Color of the message | `rgba(0, 0, 0, 0.74)`
+   * `--arc-info-message-content` | Mixin applied to the mesage container. | `{}`
+   * `--arc-info-message-action-color` | Color of the action link | `--primary-color`
+   * `--arc-info-message-action` | Mixin applied to the action link | `{}`
+   * `--arc-info-message-action-container` | Mixin applied to message's action container | `{}`
+   * `--arc-font-body1` | Theme font | `{}`
+   * `--arc-font-subhead` | Theme font title | `{}`
+   *
+   * @polymer
+   * @customElement
+   * @memberof UiElements
+   * @demo demo/index.html
+   */
   class ArcInfoMessage extends Polymer.Element {
     static get is() { return 'arc-info-message'; }
     static get properties() {
@@ -129,6 +138,32 @@ Custom property | Description | Default
 
     _computeHasAction(linkAction, linkLabel) {
       return !!(linkAction && linkLabel);
+    }
+    /**
+     * Handles click on the action item.
+     * It dispatches `open-external-url` for the app to open the window
+     * in a native way for the platform or it uses `window.open` if the event
+     * is not handled.
+     *
+     * @param {MouseEvent} e
+     */
+    _openMessage(e) {
+      e.preventDefault();
+      const url = this.linkAction;
+      const ev = new CustomEvent('open-external-url', {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+        detail: {
+          url: url
+        }
+      });
+      this.dispatchEvent(ev);
+      this._reportMessageOpen();
+      if (ev.defaultPrevented) {
+        return;
+      }
+      window.open(url);
     }
 
     // Reports GA action.
