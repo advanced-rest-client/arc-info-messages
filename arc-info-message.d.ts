@@ -11,77 +11,96 @@
 /// <reference path="../polymer/types/polymer-element.d.ts" />
 /// <reference path="../date-time/date-time.d.ts" />
 
-/**
- * A message item for the messages list.
- *
- * ### Example
- * ```
- * <arc-info-message title="Hello world!" message="This is a message" timestamp="1507842822597" link-label="Read more about this" link-action="https://domain.com"></arc-info-message>
- * ```
- *
- * ### Styling
- * `<arc-info-messages>` provides the following custom properties and mixins for styling:
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--arc-info-message` | Mixin applied to the message item | `{}`
- * `--arc-info-message-title-weight` | Message title width | `400`
- * `--arc-info-message-unread-title-weight` | Message title width when unread. | `500`
- * `--arc-info-message-title` | Mixin applied to the title of the message | `{}`
- * `--arc-info-message-date-color` | Color of the date label | `rgba(0, 0, 0, 0.64)`
- * `--arc-info-message-date` | Mixin applied to the date label | `{}`
- * `--arc-info-message-content-color` | Color of the message | `rgba(0, 0, 0, 0.74)`
- * `--arc-info-message-content` | Mixin applied to the mesage container. | `{}`
- * `--arc-info-message-action-color` | Color of the action link | `--primary-color`
- * `--arc-info-message-action` | Mixin applied to the action link | `{}`
- * `--arc-info-message-action-container` | Mixin applied to message's action container | `{}`
- * `--arc-font-body1` | Theme font | `{}`
- * `--arc-font-subhead` | Theme font title | `{}`
- */
-declare class ArcInfoMessage extends Polymer.Element {
+declare namespace UiElements {
 
   /**
-   * Title of the message
+   * A message item for the messages list.
+   *
+   * ### Example
+   *
+   * ```html
+   * <arc-info-message
+   *  title="Hello world!"
+   *  message="This is a message"
+   *  timestamp="1507842822597"
+   *  link-label="Read more about this"
+   *  link-action="https://domain.com"></arc-info-message>
+   * ```
+   *
+   * ### Styling
+   *
+   * `<arc-info-messages>` provides the following custom properties and mixins
+   * for styling:
+   *
+   * Custom property | Description | Default
+   * ----------------|-------------|----------
+   * `--arc-info-message` | Mixin applied to the message item | `{}`
+   * `--arc-info-message-title-weight` | Message title width | `400`
+   * `--arc-info-message-unread-title-weight` | Message title width when unread. | `500`
+   * `--arc-info-message-title` | Mixin applied to the title of the message | `{}`
+   * `--arc-info-message-date-color` | Color of the date label | `rgba(0, 0, 0, 0.64)`
+   * `--arc-info-message-date` | Mixin applied to the date label | `{}`
+   * `--arc-info-message-content-color` | Color of the message | `rgba(0, 0, 0, 0.74)`
+   * `--arc-info-message-content` | Mixin applied to the mesage container. | `{}`
+   * `--arc-info-message-action-color` | Color of the action link | `--primary-color`
+   * `--arc-info-message-action` | Mixin applied to the action link | `{}`
+   * `--arc-info-message-action-container` | Mixin applied to message's action container | `{}`
+   * `--arc-font-body1` | Theme font | `{}`
+   * `--arc-font-subhead` | Theme font title | `{}`
    */
-  title: string|null|undefined;
+  class ArcInfoMessage extends Polymer.Element {
 
-  /**
-   * Message to display
-   */
-  message: string|null|undefined;
+    /**
+     * Title of the message
+     */
+    title: string|null|undefined;
 
-  /**
-   * Label for the action
-   */
-  linkLabel: string|null|undefined;
+    /**
+     * Message to display
+     */
+    message: string|null|undefined;
 
-  /**
-   * Action link.
-   */
-  linkAction: string|null|undefined;
+    /**
+     * Label for the action
+     */
+    linkLabel: string|null|undefined;
 
-  /**
-   * Message timestamp
-   */
-  timestamp: string|null|undefined;
+    /**
+     * Action link.
+     */
+    linkAction: string|null|undefined;
 
-  /**
-   * `0` means that the message is unread.
-   */
-  read: number|null|undefined;
+    /**
+     * Message timestamp
+     */
+    timestamp: string|null|undefined;
 
-  /**
-   * Computed value. True to display actions container.
-   */
-  readonly hasAction: boolean|null|undefined;
-  _computeHasAction(linkAction: any, linkLabel: any): any;
+    /**
+     * `0` means that the message is unread.
+     */
+    read: number|null|undefined;
 
-  /**
-   * Reports GA action.
-   */
-  _reportMessageOpen(): void;
+    /**
+     * Computed value. True to display actions container.
+     */
+    readonly hasAction: boolean|null|undefined;
+    _computeHasAction(linkAction: any, linkLabel: any): any;
+
+    /**
+     * Handles click on the action item.
+     * It dispatches `open-external-url` for the app to open the window
+     * in a native way for the platform or it uses `window.open` if the event
+     * is not handled.
+     */
+    _openMessage(e: MouseEvent|null): void;
+
+    /**
+     * Reports GA action.
+     */
+    _reportMessageOpen(): void;
+  }
 }
 
 interface HTMLElementTagNameMap {
-  "arc-info-message": ArcInfoMessage;
+  "arc-info-message": UiElements.ArcInfoMessage;
 }

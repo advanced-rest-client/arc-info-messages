@@ -1,3 +1,9 @@
+<a name="2.0.3"></a>
+## [2.0.3](https://github.com/advanced-rest-client/arc-info-messages/compare/0.1.1...2.0.3) (2018-07-26)
+
+
+
+
 <a name="2.0.1"></a>
 ## [2.0.1](https://github.com/advanced-rest-client/arc-info-messages/compare/0.1.1...2.0.1) (2018-03-10)
 

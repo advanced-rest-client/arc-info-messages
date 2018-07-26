@@ -1,22 +1,21 @@
 {
-  "name": "@api-components/arc-info-messages",
-  "version": "2.0.1",
-  "license": "Apache-2.0 OR CC-BY-4.0",
+  "name": "@advanced-rest-client/arc-info-messages",
+  "version": "2.0.3",
+  "license": "Apache-2.0",
   "description": "A list of app messages to be displayed to the user",
+  "authors": [
+    "Pawel Psztyc",
+    "The Advanced REST client authors <arc@mulesoft.com>"
+  ],
   "devDependencies": {
-    "@polymer/gen-typescript-declarations": "^1.1.1",
-    "bower": "^1.8.0"
+    "@polymer/gen-typescript-declarations": "^1.1.1"
   },
   "private": false,
-  "main": [
-    "arc-info-messages.html"
-  ],
-  "author": "The Advanced REST client authors <arc@mulesoft.com>",
+  "main": "arc-info-messages.html",
   "scripts": {
-    "serve": "node_modules/.bin/polymer serve",
-    "lint": "node_modules/.bin/polymer lint arc-info-messages.html arc-info-message.html --rules polymer-1",
-    "test-sauce": "node_modules/.bin/polymer test --plugin sauce --job-name \"arc-info-messages:local-test\"",
-    "test": "node_modules/.bin/polymer test --plugin local",
+    "lint": "polymer lint arc-info-messages.html arc-info-message.html",
+    "test-sauce": "polymer test --plugin sauce --job-name \"arc-info-messages:local-test\"",
+    "test": "polymer test --plugin local",
     "update-types": "bower install && gen-typescript-declarations --deleteExisting --outDir ."
   },
   "repository": {
