@@ -1,16 +1,16 @@
-<!doctype html>
-<html>
-<head>
+<!DOCTYPE html><html><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
   <title>arc-info-messages demo</title>
-  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-  <link rel="import" href="../../arc-messages-service/arc-messages-service.html">
-  <link rel="import" href="../../paper-toast/paper-toast.html">
-  <link rel="import" href="../arc-info-messages.html">
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+  <script type="module" src="../../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+  <script type="module" src="../../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
+  <script type="module" src="../../../@advanced-rest-client/arc-messages-service/arc-messages-service.js"></script>
+  <script type="module" src="../../../@polymer/paper-toast/paper-toast.js"></script>
+  <script type="module" src="../arc-info-messages.js"></script>
+
   <custom-style>
     <style is="custom-style" include="demo-pages-shared-styles">
     :root {
@@ -40,7 +40,7 @@
   <dom-bind id="demo">
     <template is="dom-bind">
       <div class="vertical-section-container">
-        <h3>The `arc-info-messages`</h3>
+        <h3>The arc-info-messages</h3>
         <arc-info-messages messages="[[messages]]"></arc-info-messages>
         <p>Unread size: [[unread.length]]</p>
         <arc-messages-service platform="chrome" messages="{{messages}}" unread="{{unread}}" auto-messages></arc-messages-service>
