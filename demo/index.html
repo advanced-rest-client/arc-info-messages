@@ -1,60 +1,57 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
-  <title>arc-info-messages demo</title>
-  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+  <title>ARC info moessages demo</title>
+  <style>
+  .centered[role="main"] {
+    max-width: 1400px;
+  }
 
-  <script type="module" src="../../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
-  <script type="module" src="../../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
-  <script type="module" src="../../../@advanced-rest-client/arc-messages-service/arc-messages-service.js"></script>
-  <script type="module" src="../../../@polymer/paper-toast/paper-toast.js"></script>
-  <script type="module" src="../arc-info-messages.js"></script>
+  arc-info-messages {
+    width: 360px;
+  }
 
-  <custom-style>
-    <style is="custom-style" include="demo-pages-shared-styles">
-    :root {
-      --primary-color: #00A2DF;
+  body.styled {
+    --anypoiont-dropdown-shaddow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+    --primary-color: #00A2DF;
+    --arc-font-body1-font-size: 14px;
+    --arc-font-body1-font-weight: 400;
+    --arc-font-body1-line-height: 20px;
 
-      --arc-font-headline: {
-        @apply --paper-font-headline;
-      };
+    --arc-font-subhead-font-size: 16px;
+    --arc-font-subhead-font-weight: 400;
+    --arc-font-subhead-line-height: 24px;
 
-      --arc-font-body1: {
-        @apply --paper-font-body1;
-      };
+    --arc-font-headline-font-size: 24px;
+    --arc-font-headline-font-weight: 400;
+    --arc-font-headline-letter-spacing: -.012em;
+    --arc-font-headline-line-height: 32px;
+  }
 
-      --arc-font-subhead: {
-        @apply --paper-font-subhead;
-      }
-    }
+  body.styled.dark {
+    background-color: #424242;
+    height: 100%;
+    color: #fff;
+    --accent-color: #FF9800;
+    --primary-background-color: #424242;
+    --action-button-color: var(--primary-color);
+    --secondary-action-button-color: #fff;
+    --primary-color: #2196f3;
+    --primary-text-color: #fff;
 
-    .vertical-section-container {
-      max-width: 600px;
-      background-color: #FCFCFC;
-    }
-    </style>
-  </custom-style>
+    --icon-fill-color: rgba(255, 255, 255, 0.54);
+    --anypoint-icon-button-emphasis-low-color: #fff;
+    --anypoint-icon-button-color: #fff;
+  }
+  </style>
 </head>
+
 <body>
-  <dom-bind id="demo">
-    <template is="dom-bind">
-      <div class="vertical-section-container">
-        <h3>The arc-info-messages</h3>
-        <arc-info-messages messages="[[messages]]"></arc-info-messages>
-        <p>Unread size: [[unread.length]]</p>
-        <arc-messages-service platform="chrome" messages="{{messages}}" unread="{{unread}}" auto-messages></arc-messages-service>
-      </div>
-    </template>
-  </dom-bind>
-  <paper-toast text="Close action detected" id="closeToast"><paper-toast>
-  <script>
-  window.addEventListener('WebComponentsReady', function() {
-    document.querySelector('arc-info-messages')
-    .addEventListener('close', function() {
-      document.getElementById('closeToast').opened = true;
-    });
-  });
-  </script>
+  <div id="demo"></div>
+  <script type="module" src="index.js"></script>
 </body>
+
 </html>

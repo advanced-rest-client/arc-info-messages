@@ -7,17 +7,7 @@
 
 # arc-info-messages
 
-An applet to edit saved request data.
-
-## Example:
-
-```html
-<arc-info-messages></arc-info-messages>
-```
-
-## API components
-
-This components is a part of [API components ecosystem](https://elements.advancedrestclient.com/)
+A view with a list of app messages for Advanced REST Client.
 
 ## Usage
 
@@ -26,54 +16,52 @@ This components is a part of [API components ecosystem](https://elements.advance
 npm install --save @advanced-rest-client/arc-info-messages
 ```
 
-### In an html file
-
-```html
-<html>
-  <head>
-    <script type="module">
-      import './node_modules/@advanced-rest-client/arc-info-messages/arc-info-messages.js';
-    </script>
-  </head>
-  <body>
-    <arc-info-messages></arc-info-messages>
-  </body>
-</html>
-```
-
-### In a Polymer 3 element
+### In a LitElement
 
 ```js
-import {PolymerElement, html} from './node_modules/@polymer/polymer/polymer-element.js';
-import './node_modules/@advanced-rest-client/arc-info-messages/arc-info-messages.js';
+import { LitElement, html } from 'lit-element';
+import '@advanced-rest-client/arc-info-messages/arc-info-messages.js';
 
-class SampleElement extends PolymerElement {
-  static get template() {
+class SampleElement extends LitElement {
+  render() {
+    const { messages } = this;
     return html`
-    <arc-info-messages></arc-info-messages>
+    <arc-info-messages
+      .messages="${messages}"></arc-info-messages>
+    <arc-messages-service
+      platform="chrome"
+      channel="stable"
+      @messages-changed="${this._messagesHandler}"
+      automessages></arc-messages-service>
     `;
+  }
+
+  _messagesHandler(e) {
+    this.messages = e.detail.value;
   }
 }
 customElements.define('sample-element', SampleElement);
 ```
 
-### Installation
+## Development
 
 ```sh
 git clone https://github.com/advanced-rest-client/arc-info-messages
-cd api-url-editor
-npm install
-npm install -g polymer-cli
+cd arc-info-messages
+npm i
 ```
 
 ### Running the demo locally
 
 ```sh
-polymer serve --npm
-open http://127.0.0.1:<port>/demo/
+npm start
 ```
 
 ### Running the tests
 ```sh
-polymer test --npm
+npm test
 ```
+
+## API components
+
+This components is a part of [API components ecosystem](https://elements.advancedrestclient.com/)
